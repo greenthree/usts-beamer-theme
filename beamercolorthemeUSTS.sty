@@ -1,0 +1,51 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemeUSTS}[2026/07/28 v1.0.0 USTS Beamer color theme]
+
+\mode<presentation>
+
+\RequirePackage{xcolor}
+
+% Palette extracted from the reference slides.
+\definecolor{USTSBlue}{RGB}{0,140,215}       % #008CD7
+\definecolor{USTSDeepBlue}{RGB}{0,105,161}   % #0069A1
+\definecolor{USTSDarkBlue}{RGB}{0,70,108}    % #00466C
+\definecolor{USTSLightBlue}{RGB}{229,240,246}% #E5F0F6
+\definecolor{USTSPaleBlue}{RGB}{244,249,252} % #F4F9FC
+\definecolor{USTSGray}{RGB}{90,100,110}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=USTSBlue}
+\setbeamercolor{alerted text}{fg=USTSDeepBlue}
+\setbeamercolor{example text}{fg=USTSDarkBlue}
+\setbeamercolor{background canvas}{bg=white}
+
+\setbeamercolor{title}{fg=white,bg=USTSBlue}
+\setbeamercolor{subtitle}{fg=white,bg=USTSBlue}
+\setbeamercolor{frametitle}{fg=white,bg=USTSBlue}
+\setbeamercolor{framesubtitle}{fg=white,bg=USTSBlue}
+\setbeamercolor{section title}{fg=white,bg=USTSBlue}
+
+\setbeamercolor{block title}{fg=white,bg=USTSDeepBlue}
+\setbeamercolor{block body}{fg=black,bg=USTSLightBlue}
+\setbeamercolor{block title alerted}{fg=white,bg=USTSDarkBlue}
+\setbeamercolor{block body alerted}{fg=black,bg=USTSPaleBlue}
+\setbeamercolor{block title example}{fg=white,bg=USTSBlue}
+\setbeamercolor{block body example}{fg=black,bg=USTSPaleBlue}
+
+\setbeamercolor{palette primary}{fg=white,bg=USTSDarkBlue}
+\setbeamercolor{palette secondary}{fg=white,bg=USTSDeepBlue}
+\setbeamercolor{palette tertiary}{fg=white,bg=USTSBlue}
+\setbeamercolor{palette quaternary}{fg=white,bg=USTSDarkBlue}
+\setbeamercolor{author in head/foot}{fg=white,bg=USTSDarkBlue}
+\setbeamercolor{title in head/foot}{fg=white,bg=USTSDeepBlue}
+\setbeamercolor{date in head/foot}{fg=white,bg=USTSBlue}
+
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=USTSGray}
+\setbeamercolor{caption name}{fg=USTSDeepBlue}
+\setbeamercolor{bibliography entry author}{fg=USTSDeepBlue}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry location}{fg=USTSGray}
+\setbeamercolor{bibliography entry note}{fg=USTSGray}
+
+\mode<all>

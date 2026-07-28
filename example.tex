@@ -1,0 +1,133 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amssymb,booktabs,graphicx,listings}
+
+\usetheme[footline=full]{USTS}
+
+\hypersetup{hidelinks}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{USTSDeepBlue}\bfseries,
+  commentstyle=\color{USTSGray},
+  frame=single,
+  rulecolor=\color{USTSLightBlue},
+  columns=fullflexible,
+  keepspaces=true
+}
+
+\title[USTS Beamer]{苏州科技大学 Beamer 通用模板}
+\subtitle{适用于课程汇报、学术报告与项目展示}
+\author[张三]{张三}
+\institute[USTS]{电子与信息工程学院\\苏州科技大学}
+\date{2026 年 7 月}
+\titlegraphic{\includegraphics[height=1.25cm]{assets/usts-logo.jpg}}
+
+\AtBeginSection[]{
+  \begin{frame}[plain]
+    \sectionpage
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{目录}
+  \tableofcontents
+\end{frame}
+
+\section{基础版式}
+
+\begin{frame}{清晰的信息层级}
+  \begin{itemize}
+    \item 使用学校蓝作为标题、项目符号与强调色。
+    \item 正文保持白底黑字，兼顾投影环境下的可读性。
+    \item 页脚集中呈现作者、报告简称、日期与页码。
+  \end{itemize}
+
+  \begin{block}{使用建议}
+    每页围绕一个核心观点组织内容；文字较多时优先拆页，而不是继续缩小字号。
+  \end{block}
+\end{frame}
+
+\begin{frame}{三类信息块}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.30\textwidth}
+      \begin{block}{普通信息}
+        适合定义、背景和关键说明。
+      \end{block}
+
+    \column{0.30\textwidth}
+      \begin{exampleblock}{示例或结论}
+        用较亮的学校蓝突出正向信息。
+      \end{exampleblock}
+
+    \column{0.30\textwidth}
+      \begin{alertblock}{重点提醒}
+        用深蓝强化需要特别注意的内容。
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+\section{常用内容}
+
+\begin{frame}{公式、表格与双栏内容}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.47\textwidth}
+      \begin{block}{公式示例}
+        对于样本均值，常用表达为
+        \[
+          \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i.
+        \]
+      \end{block}
+
+      \begin{enumerate}
+        \item 提出问题；
+        \item 展示方法；
+        \item 总结结论。
+      \end{enumerate}
+
+    \column{0.47\textwidth}
+      \begin{table}
+        \centering
+        \caption{示例对比}
+        \begin{tabular}{lcc}
+          \toprule
+          方案 & 指标 A & 指标 B \\
+          \midrule
+          基线 & 72 & 0.81 \\
+          改进 & 86 & 0.90 \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{代码与技术内容}
+  \begin{lstlisting}[language=Python]
+def mean(values):
+    """Return the arithmetic mean."""
+    return sum(values) / len(values)
+  \end{lstlisting}
+
+  \begin{itemize}
+    \item 模板仅依赖常见的 TeX Live 宏包。
+    \item 中文文档建议使用 XeLaTeX 编译。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{总结}
+  \begin{block}{模板定位}
+    在保留原幻灯片配色与视觉特征的基础上，提供一套更易复用、易维护的校级通用 Beamer 主题。
+  \end{block}
+
+  \vfill
+  \centering
+  {\Large \color{USTSBlue}谢谢！}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,10 @@
+* text=auto
+
+*.tex text eol=lf
+*.sty text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+LICENSE text eol=lf
+
+*.png binary
+*.jpg binary

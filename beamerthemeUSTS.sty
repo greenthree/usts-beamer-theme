@@ -1,0 +1,146 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeUSTS}[2026/07/28 v1.0.0 USTS Beamer theme]
+
+\mode<presentation>
+
+\RequirePackage{etoolbox}
+
+\newcommand{\usts@footline}{full}
+\DeclareOptionBeamer{footline}{\renewcommand{\usts@footline}{#1}}
+\ExecuteOptionsBeamer{footline=full}
+\ProcessOptionsBeamer
+
+\usecolortheme{USTS}
+\useinnertheme{rounded}
+\useoutertheme{default}
+\usefonttheme[onlymath]{serif}
+
+\setbeamersize{text margin left=0.65cm,text margin right=0.65cm}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{sections/subsections in toc}[circle]
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{caption}[numbered]
+
+\setbeamerfont{title}{size=\Large,series=\normalfont}
+\setbeamerfont{subtitle}{size=\normalsize,series=\normalfont}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{size=\large,series=\normalfont}
+\setbeamerfont{framesubtitle}{size=\small,series=\normalfont}
+\setbeamerfont{section title}{size=\LARGE,series=\normalfont}
+\setbeamerfont{block title}{size=\normalsize,series=\normalfont}
+\setbeamerfont{author in head/foot}{size=\tiny}
+\setbeamerfont{title in head/foot}{size=\tiny}
+\setbeamerfont{date in head/foot}{size=\tiny}
+
+\makeatletter
+
+\setbeamertemplate{title page}{%
+  \vbox{}
+  \vfill
+  \begin{beamercolorbox}[wd=\textwidth,sep=0.85em,center,rounded=true,shadow=true]{title}
+    {\usebeamerfont{title}\inserttitle\par}
+    \ifx\insertsubtitle\@empty
+    \else
+      \vskip0.45em
+      {\usebeamerfont{subtitle}\insertsubtitle\par}
+    \fi
+  \end{beamercolorbox}
+  \vskip1.25em
+  \begin{center}
+    {\usebeamerfont{author}\insertauthor\par}
+    \ifx\insertinstitute\@empty
+    \else
+      \vskip0.65em
+      {\usebeamerfont{institute}\insertinstitute\par}
+    \fi
+    \ifx\insertdate\@empty
+    \else
+      \vskip0.85em
+      {\usebeamerfont{date}\insertdate\par}
+    \fi
+    \ifx\inserttitlegraphic\@empty
+    \else
+      \vskip1.0em
+      \inserttitlegraphic\par
+    \fi
+  \end{center}
+  \vfill
+}
+
+\setbeamertemplate{section page}{%
+  \begin{centering}
+    \vfill
+    \begin{beamercolorbox}[wd=0.88\textwidth,sep=1.1em,center,rounded=true,shadow=true]{section title}
+      \usebeamerfont{section title}\insertsection\par
+    \end{beamercolorbox}
+    \vfill
+  \end{centering}
+}
+
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \ifx\insertframesubtitle\@empty
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.65ex,dp=1.05ex,leftskip=0.55cm,rightskip=0.35cm]{frametitle}
+      \usebeamerfont{frametitle}\strut\insertframetitle\strut
+    \end{beamercolorbox}%
+  \else
+    \begin{beamercolorbox}[wd=\paperwidth,sep=0.28ex,leftskip=0.55cm,rightskip=0.35cm]{frametitle}
+      \usebeamerfont{frametitle}\insertframetitle\par
+      {\usebeamerfont{framesubtitle}\insertframesubtitle\par}
+    \end{beamercolorbox}%
+  \fi
+}
+
+\defbeamertemplate*{footline}{usts-full}{%
+  \leavevmode
+  \hbox{%
+    \begin{beamercolorbox}[wd=.32\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}%
+      \insertshortauthor%
+      \ifx\insertshortinstitute\@empty\else\hspace{0.35em}(\insertshortinstitute)\fi
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.32\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertshortdate\hspace{1em}%
+      \insertframenumber{} / \inserttotalframenumber\hspace{0.6cm}
+    \end{beamercolorbox}%
+  }%
+}
+
+\defbeamertemplate*{footline}{usts-minimal}{%
+  \leavevmode
+  \hbox{%
+    \begin{beamercolorbox}[wd=.84\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
+      \hspace{0.6cm}\usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.16\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace{0.6cm}
+    \end{beamercolorbox}%
+  }%
+}
+
+\defbeamertemplate*{footline}{usts-none}{}
+
+\ifdefstring{\usts@footline}{none}{%
+  \setbeamertemplate{footline}[usts-none]
+}{%
+  \ifdefstring{\usts@footline}{minimal}{%
+    \setbeamertemplate{footline}[usts-minimal]
+  }{%
+    \ifdefstring{\usts@footline}{full}{%
+      \setbeamertemplate{footline}[usts-full]
+    }{%
+      \PackageWarning{beamerthemeUSTS}{Unknown footline option `\usts@footline'; using `full'}%
+      \setbeamertemplate{footline}[usts-full]
+    }%
+  }%
+}
+
+\makeatother
+
+\mode<all>

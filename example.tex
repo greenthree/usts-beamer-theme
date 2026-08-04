@@ -1,11 +1,12 @@
 \documentclass[aspectratio=169,11pt]{beamer}
 
 \usepackage[UTF8]{ctex}
-\usepackage{amsmath,amssymb,booktabs,graphicx,listings}
+\usepackage{amsmath,amssymb,booktabs,graphicx,listings,mwe}
 
 \usetheme[footline=full]{USTS}
 
 \hypersetup{hidelinks}
+\graphicspath{{assets/}}
 
 \lstset{
   basicstyle=\ttfamily\small,
@@ -13,16 +14,18 @@
   commentstyle=\color{USTSGray},
   frame=single,
   rulecolor=\color{USTSLightBlue},
+  breaklines=true,
   columns=fullflexible,
-  keepspaces=true
+  keepspaces=true,
+  showstringspaces=false
 }
 
 \title[USTS Beamer]{苏州科技大学 Beamer 通用模板}
 \subtitle{适用于课程汇报、学术报告与项目展示}
 \author[张三]{张三}
 \institute[USTS]{电子与信息工程学院\\苏州科技大学}
-\date{2026 年 7 月}
-\titlegraphic{\includegraphics[height=1.25cm]{assets/usts-logo.jpg}}
+\date{\today}
+\titlegraphic{\includegraphics[height=1.25cm]{usts-logo.jpg}}
 
 \AtBeginSection[]{
   \begin{frame}[plain]
@@ -73,6 +76,69 @@
   \end{columns}
 \end{frame}
 
+\section{图片与布局}
+
+\begin{frame}[fragile]{插入单张图片并添加图注}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.46\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.78\linewidth,keepaspectratio]{example-image-a}
+        \caption{单张图片示例}
+      \end{figure}
+
+      \begin{itemize}
+        \item \texttt{width} 控制相对宽度；
+        \item \texttt{keepaspectratio} 防止图片变形。
+      \end{itemize}
+
+    \column{0.50\textwidth}
+      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+\begin{figure}
+  \centering
+  \includegraphics[
+    width=.78\linewidth,
+    keepaspectratio
+  ]{image-file}
+  \caption{图片说明}
+\end{figure}
+      \end{lstlisting}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{图文双栏与图片裁剪}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+      \begin{block}{适合说明型页面}
+        左侧放观点、步骤或数据，右侧放与当前结论直接相关的图片。
+      \end{block}
+
+      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+\begin{columns}
+  \column{.48\textwidth}
+  Text or bullets
+  \column{.48\textwidth}
+  \includegraphics[
+    width=\linewidth,
+    trim=18 18 18 18,
+    clip
+  ]{image-file}
+\end{columns}
+      \end{lstlisting}
+
+    \column{0.46\textwidth}
+      \centering
+      \includegraphics[
+        width=\linewidth,
+        trim=18 18 18 18,
+        clip
+      ]{example-image-b}
+
+      \vspace{0.6em}
+      {\small \texttt{trim = left bottom right top}，并与 \texttt{clip} 配合。}
+  \end{columns}
+\end{frame}
+
 \section{常用内容}
 
 \begin{frame}{公式、表格与双栏内容}
@@ -107,6 +173,60 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{定义、定理与证明环境}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.43\textwidth}
+      \begin{definition}[算术平均数]
+        对于 $n$ 个实数 $x_1,\ldots,x_n$，算术平均数定义为
+        \[
+          \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i.
+        \]
+      \end{definition}
+
+    \column{0.53\textwidth}
+      \begin{theorem}
+        \normalfont
+        对任意正整数 $n$，有
+        \[
+          1+2+\cdots+n=\frac{n(n+1)}{2}.
+        \]
+      \end{theorem}
+
+      \begin{proof}
+        \normalfont
+        将数列首尾配对，每一对之和均为 $n+1$，整理即可得到结论。
+      \end{proof}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{用覆盖层逐步显示内容}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.43\textwidth}
+      \begin{enumerate}[<+->]
+        \item 先说明问题背景；
+        \item 再展示分析过程；
+        \item 最后给出关键结论。
+      \end{enumerate}
+
+      \uncover<4->{
+        \begin{exampleblock}{呈现原则}
+          逐步显示应服务于讲解节奏，而不是制造无意义的动画。
+        \end{exampleblock}
+      }
+
+    \column{0.53\textwidth}
+      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+\begin{enumerate}[<+->]
+  \item First point
+  \item Second point
+  \item Final point
+\end{enumerate}
+
+\uncover<4->{Final result}
+      \end{lstlisting}
+  \end{columns}
+\end{frame}
+
 \begin{frame}[fragile]{代码与技术内容}
   \begin{lstlisting}[language=Python]
 def mean(values):
@@ -120,14 +240,40 @@ def mean(values):
   \end{itemize}
 \end{frame}
 
-\begin{frame}{总结}
-  \begin{block}{模板定位}
-    在保留原幻灯片配色与视觉特征的基础上，提供一套更易复用、易维护的校级通用 Beamer 主题。
+\begin{frame}[fragile]{超链接、按钮与页内跳转}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.44\textwidth}
+      \begin{block}{外部链接}
+        \href{https://www.usts.edu.cn/}{\beamergotobutton{苏州科技大学官网}}
+      \end{block}
+
+      \begin{block}{页内跳转}
+        \hyperlink{summary}{\beamergotobutton{跳到总结页}}
+      \end{block}
+
+    \column{0.52\textwidth}
+      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+\href{https://example.com}{
+  \beamergotobutton{Website}
+}
+
+\hyperlink{summary}{
+  \beamergotobutton{Go to summary}
+}
+      \end{lstlisting}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[label=summary]{从示例开始制作你的报告}
+  \begin{block}{下一步}
+    复制 \texttt{example.tex}，替换标题、作者、学院、正文和图片，即可开始制作自己的报告。
   \end{block}
 
-  \vfill
-  \centering
-  {\Large \color{USTSBlue}谢谢！}
+  \begin{itemize}
+    \item 保留主题文件，按需要选择页脚模式；
+    \item 将图片集中放入 \texttt{assets/}，并使用相对路径引用；
+    \item 编译后逐页检查文字换行、图片清晰度和内容密度。
+  \end{itemize}
 \end{frame}
 
 \end{document}

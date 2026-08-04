@@ -26,6 +26,7 @@
 ```tex
 \documentclass[aspectratio=169,11pt]{beamer}
 \usepackage[UTF8]{ctex}
+\usepackage{graphicx}
 \usetheme[footline=full]{USTS}
 
 \title{报告标题}
@@ -42,6 +43,43 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error example.tex
 ```
 
 完整用法见 [`example.tex`](example.tex)。
+
+## 常用语法示例
+
+`example.tex` 现在覆盖以下常见场景：
+
+- 单张图片、图注、等比例缩放；
+- 图文双栏、图片裁剪与对齐；
+- 公式、表格、普通块、示例块和提醒块；
+- 定义、定理与证明环境；
+- 使用覆盖层逐步显示内容；
+- Python 代码高亮；
+- 外部链接、Beamer 按钮和页内跳转。
+
+插入自己的图片时，可直接使用：
+
+```tex
+\begin{figure}
+  \centering
+  \includegraphics[
+    width=0.7\linewidth,
+    keepaspectratio
+  ]{assets/image-file.jpg}
+  \caption{图片说明}
+\end{figure}
+```
+
+需要裁剪时使用 `trim = left bottom right top`，并同时加入 `clip`：
+
+```tex
+\includegraphics[
+  width=\linewidth,
+  trim=18 18 18 18,
+  clip
+]{assets/image-file.jpg}
+```
+
+示例中的 `example-image-a` 和 `example-image-b` 来自 TeX Live 的 `mwe` 宏包，仅用于演示图片布局；实际使用时替换为自己的图片即可。
 
 ## 页脚选项
 

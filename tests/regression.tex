@@ -1,72 +1,119 @@
-\ifdefined\USTSFourThree
-  \documentclass[aspectratio=43,11pt,usepdftitle=false]{beamer}
+\ifdefined\USTSWide
+  \documentclass[aspectratio=169]{beamer}
 \else
-  \documentclass[aspectratio=169,11pt,usepdftitle=false]{beamer}
+  \documentclass{beamer}
 \fi
-\usepackage[UTF8]{ctex}
-\usetheme[footline=full]{USTS}
 
-\title{Regression}
-\author{Author}
-\date{2026-10-06}
+\ifdefined\USTSReference
+  % Independent baseline: the reference's original configuration.
+  \usetheme[footline=none]{Madrid}
+  \input{tests/reference/beamercolorthememycolor.sty}
+  \setbeamertemplate{导航符号}{} % 原稿的这一行不关闭实际导航图标
+\else
+  \usetheme{USTS}
+\fi
+
+\usepackage{ctex}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx,booktabs}
+\ifdefined\USTSReference
+  \usefonttheme[onlymath]{serif}
+\fi
+
+\title[正式赛题解]{第十二届苏州科技大学程序设计竞赛\\正式赛题解}
+\author{ACM 集训队}
+\institute[USTS]{苏州科技大学\\\medskip}
+\date{$2026$年$4$月$26$日}
 
 \begin{document}
 
-\begin{frame}{未指定单位}
-  不设置单位时，页脚只显示作者。
+\begin{frame}
+  \titlepage
+  \begin{figure}[htbp]
+    \begin{center}
+      \includegraphics[scale=0.18]{assets/usts-logo.jpg}$\ \ \ $
+      \includegraphics[scale=0.32]{assets/acm-logo.png}
+    \end{center}
+  \end{figure}
+  \vspace{25pt}
 \end{frame}
 
-\institute[]{苏州科技大学}
-\begin{frame}{显式空短单位}
-  标题页仍可使用完整单位，页脚不显示括号。
+\begin{frame}{题目难度}
+  \begin{itemize}
+    \item Easy：H、F、D\\[1em]
+    \item Medium：G、E、A、J\\[1em]
+    \item Hard：C、B、I\\[1em]
+  \end{itemize}
 \end{frame}
 
-\institute{苏州科技大学}
-\begin{frame}{仅设置完整单位}
-  完整单位自动成为短单位。
-\end{frame}
-
-\institute[USTS]{苏州科技大学}
-\begin{frame}{设置短单位}
-  页脚显示短单位。
-\end{frame}
-
-\begin{frame}{自动换行标题开头：这是一段足够长的中文标题，用于检查标题栏在自动换行时能够完整容纳每一行文字，并正确为正文预留垂直空间。自动换行标题结尾}
-  多行标题应完整显示。
+\begin{frame}{H.}
+  \begin{block}{简要题意}
+    给定 $n$ 个数，求大于等于 $6$ 的数的个数。
+  \end{block}
+  \begin{itemize}
+    \item 对每个数进行判断计数即可。
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{手动换行第一行\\手动换行第二行}
-  两行标题都应可见。
+  两行标题都应完整显示。
+\end{frame}
+
+\begin{frame}{自动换行标题开头：这是一段足够长的中文标题，用于检查原生标题栏完整容纳自动换行的内容。自动换行标题结尾}
+  标题栏应为正文预留空间。
 \end{frame}
 
 \begin{frame}{主标题}
   \framesubtitle{副标题内容}
-  主标题和副标题都应有上下留白。
+  \begin{block}{普通块}
+    正文与结构色使用原稿设置。
+  \end{block}
+  \begin{alertblock}{提醒块}
+    提醒色与原稿一致。
+  \end{alertblock}
+  \begin{exampleblock}{示例块}
+    保留 Madrid 的默认绿色。
+  \end{exampleblock}
 \end{frame}
 
-\author{First Author \and Second Author \and Third Author \and Fourth Author}
-\title{A very long report title about experimental methods, results, and conclusions}
-\date{A long presentation date: October 6, 2026}
-\begin{frame}{长页脚元数据}
-  作者、报告名称和日期应保持在各自分栏内。
+\institute{}
+\begin{frame}{未指定单位}
+  页脚只显示作者，不显示孤立括号。
 \end{frame}
 
-\setbeamertemplate{footline}[usts-minimal]
-\begin{frame}{极简页脚}
-  长报告名称和页码应保持在各自分栏内。
+\institute[]{苏州科技大学}
+\begin{frame}{显式空短单位}
+  页脚不显示单位。
 \end{frame}
 
-\setbeamertemplate{footline}[usts-none]
-\begin{frame}{无页脚}
-  此页不显示页脚文字。
+\institute{苏州科技大学}
+\begin{frame}{仅设置完整单位}
+  Beamer 将完整单位同时用作短单位。
 \end{frame}
 
-\title[Short]{A very long report title about experimental methods, results, and conclusions}
-\author[Team]{First Author \and Second Author \and Third Author \and Fourth Author}
-\date[2026]{A long presentation date: October 6, 2026}
-\setbeamertemplate{footline}[usts-full]
-\begin{frame}{使用简写}
-  简写内容应按原字号显示。
+\institute[USTS]{苏州科技大学}
+\begin{frame}{设置短单位}
+  \begin{columns}[T,onlytextwidth]
+    \column{.46\textwidth}
+      \begin{block}{公式}
+        \[
+          E(n)=1+\frac{1}{m}\sum_{i=1}^{m}E(n-i)
+        \]
+      \end{block}
+    \column{.46\textwidth}
+      \begin{tabular}{lr}
+        \toprule
+        方法 & 结果 \\
+        \midrule
+        A & 12.8 \\
+        B & 13.1 \\
+        \bottomrule
+      \end{tabular}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[plain,noframenumbering]{普通 plain 页面}
+  用标准 Beamer 选项隐藏页眉、页脚并排除页码统计。
 \end{frame}
 
 \end{document}

@@ -1,278 +1,249 @@
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass{beamer}
+\usetheme{USTS}
 
-\usepackage[UTF8]{ctex}
-\usepackage{amsmath,amssymb,booktabs,graphicx,listings,mwe}
+\usepackage{ctex}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,booktabs,graphicx,listings,mwe}
 
-\usetheme[footline=full]{USTS}
-
-\hypersetup{hidelinks}
-\graphicspath{{assets/}}
-
+% 代码高亮只作用于 listings，不覆盖主题的颜色、字体或布局。
 \lstset{
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{USTSDeepBlue}\bfseries,
-  commentstyle=\color{USTSGray},
-  frame=single,
-  rulecolor=\color{USTSLightBlue},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{USTSBlue!75!black},
+  commentstyle=\color{gray},
   breaklines=true,
   columns=fullflexible,
   keepspaces=true,
   showstringspaces=false
 }
 
-\title[USTS Beamer]{苏州科技大学 Beamer 通用模板}
-\subtitle{适用于课程汇报、学术报告与项目展示}
+\title[模板示例]{苏州科技大学\\Beamer 通用模板}
 \author[绿化三]{绿化三}
-\institute[USTS]{物理科学与技术学院\\苏州科技大学}
+\institute[USTS]{苏州科技大学物理科学与技术学院\\\medskip}
 \date{\today}
-\titlegraphic{\includegraphics[height=1.25cm]{usts-logo.jpg}}
-
-\AtBeginSection[]{
-  \begin{frame}[plain]
-    \sectionpage
-  \end{frame}
-}
 
 \begin{document}
 
 \begin{frame}
   \titlepage
+  \begin{figure}[htbp]
+    \begin{center}
+      \includegraphics[scale=0.18]{assets/usts-logo.jpg}$\ \ \ $
+      \includegraphics[scale=0.32]{assets/acm-logo.png}
+    \end{center}
+  \end{figure}
+  \vspace{25pt}
 \end{frame}
 
-\begin{frame}{目录}
-  \tableofcontents
-\end{frame}
-
-\section{基础版式}
-
-\begin{frame}{清晰的信息层级}
+\begin{frame}{示例内容}
   \begin{itemize}
-    \item 使用学校蓝作为标题、项目符号与强调色。
-    \item 正文保持白底黑字，兼顾投影环境下的可读性。
-    \item 页脚集中呈现作者、报告简称、日期与页码。
+    \item 列表、信息块与数学公式\\[1em]
+    \item 表格、图片与双栏排版\\[1em]
+    \item 定理、覆盖层、代码与超链接\\[1em]
   \end{itemize}
+\end{frame}
 
-  \begin{block}{使用建议}
-    每页围绕一个核心观点组织内容；文字较多时优先拆页，而不是继续缩小字号。
+\begin{frame}{列表与分级内容}
+  \begin{block}{研究问题}
+    说明研究对象与需要回答的问题。
   \end{block}
+  \begin{itemize}
+    \item 研究背景
+      \begin{itemize}
+        \item 已有方法与局限
+        \item 本次报告的研究范围
+      \end{itemize}
+    \item 方法、结果与结论
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{三类信息块}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.30\textwidth}
-      \begin{block}{普通信息}
-        适合定义、背景和关键说明。
-      \end{block}
-
-    \column{0.30\textwidth}
-      \begin{exampleblock}{示例或结论}
-        用较亮的学校蓝突出正向信息。
-      \end{exampleblock}
-
-    \column{0.30\textwidth}
-      \begin{alertblock}{重点提醒}
-        用深蓝强化需要特别注意的内容。
-      \end{alertblock}
-  \end{columns}
+\begin{frame}{信息块}
+  \begin{block}{普通信息}
+    适合问题描述、定义和背景说明。
+  \end{block}
+  \begin{alertblock}{重点提醒}
+    与原稿一致，提醒色采用学校蓝。
+  \end{alertblock}
+  \begin{exampleblock}{示例}
+    示例块保留 Madrid 默认的绿色。
+  \end{exampleblock}
 \end{frame}
 
-\section{图片与布局}
+\begin{frame}{数学公式}
+  \begin{block}{递推关系}
+    当 $n \ge m$ 时，有
+    \[
+      E(n) = 1 + \frac{1}{m}\sum_{i=1}^{m}E(n-i).
+    \]
+  \end{block}
+  \begin{itemize}
+    \item 行内公式：$E=mc^2$。
+    \item 多行对齐公式：
+      \[
+        \begin{aligned}
+          i - \operatorname{pre}(i)
+            &\le \operatorname{pre}(n)-\operatorname{pre}(i),\\
+          i &\le \operatorname{pre}(n).
+        \end{aligned}
+      \]
+  \end{itemize}
+\end{frame}
 
-\begin{frame}[fragile]{插入单张图片并添加图注}
+\begin{frame}{三线表}
+  \begin{table}
+    \centering
+    \begin{tabular}{lrr}
+      \toprule
+      方法 & 测量值 & 标准差 \\
+      \midrule
+      方法 A & 12.8 & 0.4 \\
+      方法 B & 13.1 & 0.3 \\
+      方法 C & 12.9 & 0.2 \\
+      \bottomrule
+    \end{tabular}
+    \caption{表格排版演示数据}
+  \end{table}
+  \begin{itemize}
+    \item 使用 \texttt{booktabs} 提供的三线表命令。
+    \item 数值列右对齐，单位可写入表头。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{嵌入图片}
   \begin{columns}[T,onlytextwidth]
-    \column{0.46\textwidth}
+    \column{0.45\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=0.78\linewidth,keepaspectratio]{example-image-a}
+        \includegraphics[width=\linewidth]{example-image-a}
         \caption{单张图片示例}
       \end{figure}
-
-      \begin{itemize}
-        \item \texttt{width} 控制相对宽度；
-        \item \texttt{keepaspectratio} 防止图片变形。
-      \end{itemize}
-
-    \column{0.50\textwidth}
-      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+    \column{0.51\textwidth}
+      \begin{lstlisting}[language={[LaTeX]TeX}]
 \begin{figure}
   \centering
   \includegraphics[
-    width=.78\linewidth,
-    keepaspectratio
-  ]{image-file}
-  \caption{图片说明}
+    width=\linewidth
+  ]{assets/photo.jpg}
+  \caption{Image caption}
 \end{figure}
       \end{lstlisting}
+      {\small 只指定宽度时，图片会保持原始比例。}
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{图文双栏与图片裁剪}
+\begin{frame}[fragile]{图文双栏}
   \begin{columns}[T,onlytextwidth]
-    \column{0.48\textwidth}
-      \begin{block}{适合说明型页面}
-        左侧放观点、步骤或数据，右侧放与当前结论直接相关的图片。
-      \end{block}
-
-      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
-\begin{columns}
-  \column{.48\textwidth}
-  Text or bullets
-  \column{.48\textwidth}
-  \includegraphics[
-    width=\linewidth,
-    trim=18 18 18 18,
-    clip
-  ]{image-file}
-\end{columns}
-      \end{lstlisting}
-
     \column{0.46\textwidth}
-      \centering
+      \begin{block}{实验结果}
+        左栏解释实验条件、测量方法或关键结论。
+      \end{block}
+      \begin{itemize}
+        \item 图片宽度相对于当前栏计算。
+        \item 用 \texttt{[T]} 对齐栏顶。
+      \end{itemize}
+    \column{0.48\textwidth}
+      \includegraphics[width=\linewidth]{example-image-b}
+  \end{columns}
+  \medskip
+  \begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{columns}[T,onlytextwidth]
+  \column{.46\textwidth} Left text
+  \column{.48\textwidth}
+    \includegraphics[width=\linewidth]{image}
+\end{columns}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{图片裁剪}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.45\textwidth}
       \includegraphics[
         width=\linewidth,
-        trim=18 18 18 18,
+        trim=25 20 25 20,
         clip
-      ]{example-image-b}
-
-      \vspace{0.6em}
-      {\small \texttt{trim = left bottom right top}，并与 \texttt{clip} 配合。}
+      ]{example-image-a}
+    \column{0.51\textwidth}
+      \begin{lstlisting}[language={[LaTeX]TeX}]
+\includegraphics[
+  width=\linewidth,
+  trim=25 20 25 20,
+  clip
+]{assets/photo.jpg}
+      \end{lstlisting}
+      {\small \texttt{trim} 顺序为左、下、右、上，默认单位为 bp。}
   \end{columns}
 \end{frame}
 
-\section{常用内容}
-
-\begin{frame}{公式、表格与双栏内容}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.47\textwidth}
-      \begin{block}{公式示例}
-        对于样本均值，常用表达为
-        \[
-          \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i.
-        \]
-      \end{block}
-
-      \begin{enumerate}
-        \item 提出问题；
-        \item 展示方法；
-        \item 总结结论。
-      \end{enumerate}
-
-    \column{0.47\textwidth}
-      \begin{table}
-        \centering
-        \caption{示例对比}
-        \begin{tabular}{lcc}
-          \toprule
-          方案 & 指标 A & 指标 B \\
-          \midrule
-          基线 & 72 & 0.81 \\
-          改进 & 86 & 0.90 \\
-          \bottomrule
-        \end{tabular}
-      \end{table}
-  \end{columns}
+\begin{frame}{定义、定理与证明}
+  \begin{definition}
+    若数列满足 $a_{n+1}=q a_n$，则称其为等比数列。
+  \end{definition}
+  \begin{theorem}
+    \upshape % 中文字体通常没有独立的斜体字形
+    公比为 $q$ 的等比数列满足 $a_n=a_1q^{n-1}$。
+  \end{theorem}
+  \begin{proof}
+    由递推关系连续代入即可得到结论。
+  \end{proof}
 \end{frame}
 
-\begin{frame}{定义、定理与证明环境}
+\begin{frame}[fragile]{逐步显示内容}
   \begin{columns}[T,onlytextwidth]
-    \column{0.43\textwidth}
-      \begin{definition}[算术平均数]
-        对于 $n$ 个实数 $x_1,\ldots,x_n$，算术平均数定义为
-        \[
-          \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i.
-        \]
-      \end{definition}
-
-    \column{0.53\textwidth}
-      \begin{theorem}
-        \normalfont
-        对任意正整数 $n$，有
-        \[
-          1+2+\cdots+n=\frac{n(n+1)}{2}.
-        \]
-      \end{theorem}
-
-      \begin{proof}
-        \normalfont
-        将数列首尾配对，每一对之和均为 $n+1$，整理即可得到结论。
-      \end{proof}
-  \end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{用覆盖层逐步显示内容}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.43\textwidth}
+    \column{0.45\textwidth}
       \begin{enumerate}[<+->]
-        \item 先说明问题背景；
-        \item 再展示分析过程；
-        \item 最后给出关键结论。
+        \item 给出问题。
+        \item 说明推导过程。
+        \item 展示最终结论。
       \end{enumerate}
-
-      \uncover<4->{
-        \begin{exampleblock}{呈现原则}
-          逐步显示应服务于讲解节奏，而不是制造无意义的动画。
-        \end{exampleblock}
-      }
-
-    \column{0.53\textwidth}
-      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+      \uncover<3->{\medskip 覆盖层共用同一个 frame 页码。}
+    \column{0.51\textwidth}
+      \begin{lstlisting}[language={[LaTeX]TeX}]
 \begin{enumerate}[<+->]
-  \item First point
-  \item Second point
-  \item Final point
+  \item Question
+  \item Method
+  \item Result
 \end{enumerate}
 
-\uncover<4->{Final result}
+\uncover<3->{Conclusion}
       \end{lstlisting}
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{代码与技术内容}
-  \begin{lstlisting}[language=Python]
+\begin{frame}[fragile]{代码示例}
+  \begin{lstlisting}[language=Python,basicstyle=\ttfamily\small]
 def mean(values):
     """Return the arithmetic mean."""
     return sum(values) / len(values)
   \end{lstlisting}
-
   \begin{itemize}
-    \item 模板仅依赖常见的 TeX Live 宏包。
-    \item 中文文档建议使用 XeLaTeX 编译。
+    \item 使用 \texttt{listings} 排版代码。
+    \item 含代码的 frame 需要添加 \texttt{fragile}。
+    \item 中文文档使用 XeLaTeX 编译。
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{超链接、按钮与页内跳转}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.44\textwidth}
-      \begin{block}{外部链接}
-        \href{https://www.usts.edu.cn/}{\beamergotobutton{苏州科技大学官网}}
-      \end{block}
-
-      \begin{block}{页内跳转}
-        \hyperlink{summary}{\beamergotobutton{跳到总结页}}
-      \end{block}
-
-    \column{0.52\textwidth}
-      \begin{lstlisting}[language={[LaTeX]TeX},basicstyle=\ttfamily\scriptsize]
+\begin{frame}[fragile]{链接与页内跳转}
+  \href{https://www.usts.edu.cn/}{\beamergotobutton{苏州科技大学官网}}
+  \quad
+  \hyperlink{summary}{\beamergotobutton{总结页}}
+  \medskip
+  \begin{lstlisting}[language={[LaTeX]TeX}]
 \href{https://example.com}{
   \beamergotobutton{Website}
 }
-
 \hyperlink{summary}{
-  \beamergotobutton{Go to summary}
+  \beamergotobutton{Summary}
 }
-      \end{lstlisting}
-  \end{columns}
+  \end{lstlisting}
 \end{frame}
 
-\begin{frame}[label=summary]{从示例开始制作你的报告}
-  \begin{block}{下一步}
-    复制 \texttt{example.tex}，替换标题、作者、学院、正文和图片，即可开始制作自己的报告。
+\begin{frame}[label=summary]{总结}
+  \begin{block}{使用入口}
+    用 \texttt{template.tex} 开始制作报告，按需要从本示例复制语法。
   \end{block}
-
   \begin{itemize}
-    \item 保留主题文件，按需要选择页脚模式；
-    \item 将图片集中放入 \texttt{assets/}，并使用相对路径引用；
-    \item 编译后逐页检查文字换行、图片清晰度和内容密度。
+    \item 修改标题、作者、学院和日期。
+    \item 将自己的图片放入 \texttt{assets/}。
+    \item 为较长的标题和作者提供页脚简写。
   \end{itemize}
 \end{frame}
 

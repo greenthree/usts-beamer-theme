@@ -1,4 +1,4 @@
-name: Build example
+name: Build and check fidelity
 
 on:
   push:
@@ -20,20 +20,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y latexmk texlive-xetex texlive-lang-chinese texlive-latex-extra poppler-utils
 
-      - name: Compile example
-        run: latexmk -xelatex -interaction=nonstopmode -halt-on-error example.tex
+      - name: Compile template and syntax examples
+        run: latexmk -xelatex -interaction=nonstopmode -halt-on-error template.tex example.tex
 
-      - name: Check layout regressions
-        run: |
-          latexmk -xelatex -interaction=nonstopmode -halt-on-error tests/regression.tex
-          latexmk -xelatex -interaction=nonstopmode -halt-on-error tests/regression-43.tex
-          python3 tests/check_pdf.py regression.pdf regression-43.pdf
+      - name: Compare original and extracted theme pixel by pixel
+        run: python3 tests/check_fidelity.py
 
       - name: Upload PDF
         uses: actions/upload-artifact@v7
         with:
-          name: usts-beamer-example
+          name: usts-beamer-template
           path: |
+            template.pdf
             example.pdf
-            regression.pdf
-            regression-43.pdf
+            build/fidelity/*/*.pdf

@@ -16,3 +16,5 @@
 *.vrb
 *.xdv
 _minted-*/
+build/
+__pycache__/

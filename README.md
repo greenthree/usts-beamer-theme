@@ -18,7 +18,7 @@
 - 封面仅放置居中的校徽，可按报告用途替换。
 - 提供可直接填写的报告模板与常用语法示例。
 
-默认作者为「绿化三」，封面单位显示为「（苏州科技大学 ACM 集训队）」，页脚简写为 `USTS ACM`。
+默认作者为「绿化三」，封面单位显示为「苏州科技大学 ACM 集训队」，页脚简写为 `USTS ACM`。
 
 ## 快速开始
 
@@ -35,7 +35,7 @@
 
 \title[报告简称]{苏州科技大学\\报告标题}
 \author[绿化三]{绿化三}
-\institute[USTS ACM]{（苏州科技大学 ACM 集训队）\\\medskip}
+\institute[USTS ACM]{苏州科技大学 ACM 集训队\\\medskip}
 \date{\today}
 ```
 
@@ -118,7 +118,7 @@ Madrid 页脚不自动缩小或截断文字。标题、作者或日期较长时�
 ```tex
 \title[项目汇报]{完整的项目研究与成果汇报标题}
 \author[绿化三等]{绿化三 \and 李四 \and 王五}
-\institute[USTS ACM]{（苏州科技大学 ACM 集训队）\\\medskip}
+\institute[USTS ACM]{苏州科技大学 ACM 集训队\\\medskip}
 \date[2026-10]{2026 年 10 月}
 ```
 

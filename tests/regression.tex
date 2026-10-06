@@ -4,11 +4,13 @@
   \documentclass{beamer}
 \fi
 
-\ifdefined\USTSReference
-  % Independent baseline: the reference's original configuration.
-  \usetheme[footline=none]{Madrid}
-  \input{tests/reference/beamercolorthememycolor.sty}
-  \setbeamertemplate{导航符号}{} % 原稿的这一行不关闭实际导航图标
+\ifdefined\USTSBaseline
+  % Independent Madrid configuration for layout regression checks.
+  \usetheme{Madrid}
+  \definecolor{baselineblue}{RGB}{0,140,215}
+  \usecolortheme[named=baselineblue]{structure}
+  \setbeamercolor{normal text}{fg=black}
+  \setbeamercolor{alerted text}{fg=baselineblue}
 \else
   \usetheme{USTS}
 \fi
@@ -16,14 +18,14 @@
 \usepackage{ctex}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx,booktabs}
-\ifdefined\USTSReference
+\ifdefined\USTSBaseline
   \usefonttheme[onlymath]{serif}
 \fi
 
-\title[正式赛题解]{第十二届苏州科技大学程序设计竞赛\\正式赛题解}
-\author{ACM 集训队}
-\institute[USTS]{苏州科技大学\\\medskip}
-\date{$2026$年$4$月$26$日}
+\title[排版测试]{苏州科技大学\\Beamer 排版测试}
+\author{绿化三}
+\institute[USTS]{苏州科技大学物理科学与技术学院\\\medskip}
+\date{2026-10-06}
 
 \begin{document}
 
@@ -35,23 +37,27 @@
       \includegraphics[scale=0.32]{assets/acm-logo.png}
     \end{center}
   \end{figure}
-  \vspace{25pt}
+  \ifdefined\USTSWide
+    \vspace{5pt}
+  \else
+    \vspace{25pt}
+  \fi
 \end{frame}
 
-\begin{frame}{题目难度}
+\begin{frame}{报告提纲}
   \begin{itemize}
-    \item Easy：H、F、D\\[1em]
-    \item Medium：G、E、A、J\\[1em]
-    \item Hard：C、B、I\\[1em]
+    \item 研究背景\\[1em]
+    \item 方法与结果\\[1em]
+    \item 总结与展望\\[1em]
   \end{itemize}
 \end{frame}
 
-\begin{frame}{H.}
-  \begin{block}{简要题意}
-    给定 $n$ 个数，求大于等于 $6$ 的数的个数。
+\begin{frame}{信息块}
+  \begin{block}{问题描述}
+    信息块用于展示研究背景、定义和关键说明。
   \end{block}
   \begin{itemize}
-    \item 对每个数进行判断计数即可。
+    \item 正文列表用于补充解释。
   \end{itemize}
 \end{frame}
 
@@ -66,13 +72,13 @@
 \begin{frame}{主标题}
   \framesubtitle{副标题内容}
   \begin{block}{普通块}
-    正文与结构色使用原稿设置。
+    正文使用黑色，结构色采用学校蓝。
   \end{block}
   \begin{alertblock}{提醒块}
-    提醒色与原稿一致。
+    提醒色采用学校蓝。
   \end{alertblock}
   \begin{exampleblock}{示例块}
-    保留 Madrid 的默认绿色。
+    示例块使用 Madrid 默认的绿色。
   \end{exampleblock}
 \end{frame}
 

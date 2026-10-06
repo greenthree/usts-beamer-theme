@@ -1,10 +1,8 @@
 # Assets
 
-Both files are copied without resampling or conversion from the user-provided reference presentation:
+- `usts-logo.jpg`：苏州科技大学校徽，示例封面使用 `scale=0.18`。
+- `acm-logo.png`：ACM 集训队标识，示例封面使用 `scale=0.32`。
 
-- `usts-logo.jpg`: original `solution/skd.jpg`, displayed at `scale=0.18`.
-- `acm-logo.png`: original `solution/acm.png`, displayed at `scale=0.32`.
+制作课程或学术报告时，可以删除 ACM 标识对应的图片命令，或替换为学院提供的标识。更换素材时应保持图片比例，并遵守相应视觉标识规范。
 
-The second mark belongs to the ACM training team and is retained to reproduce the original two-mark cover. For a general academic report, remove its `\includegraphics` line or replace it with your own approved department mark.
-
-The university name, emblem, team mark, and related marks remain the property of their respective rights holders. They are not licensed under the repository's MIT License. Use approved replacement assets when needed.
+学校名称、校徽、团队标识等权利归各自权利人所有，不属于本项目 MIT License 的授权范围。

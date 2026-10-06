@@ -1,4 +1,4 @@
-"""Compile original/USTS configurations and require pixel-identical PDF pages."""
+"""Check Beamer layout and compare the USTS theme with a Madrid baseline."""
 
 import argparse
 import os
@@ -78,21 +78,21 @@ def check_fixture(pages, wide):
     assert "副标题内容" in page_text(pages[5])
     for index in (6, 7):
         footer = page_text(pages[index], footer=True)
-        assert "ACM" in footer and "(" not in footer, "Empty institute produced parentheses"
+        assert "绿化三" in footer and "(" not in footer, "Empty institute produced parentheses"
     assert "苏州科技大学" in page_text(pages[8], footer=True)
     assert "(USTS)" in page_text(pages[9], footer=True)
     assert "10/10" in page_text(pages[9], footer=True), "Frame count did not converge"
     assert page_text(pages[10], footer=True) == "", "plain frame still has a footer"
 
 
-def compare(reference, actual, args):
-    reference_pages, actual_pages = pdf_pages(reference, args), pdf_pages(actual, args)
-    assert len(reference_pages) == len(actual_pages), "Reference/USTS page counts differ"
-    for number, (expected, page) in enumerate(zip(reference_pages, actual_pages), 1):
+def compare(baseline, actual, args):
+    baseline_pages, actual_pages = pdf_pages(baseline, args), pdf_pages(actual, args)
+    assert len(baseline_pages) == len(actual_pages), "Baseline/USTS page counts differ"
+    for number, (expected, page) in enumerate(zip(baseline_pages, actual_pages), 1):
         assert expected.get("width") == page.get("width"), f"Page {number}: width differs"
         assert expected.get("height") == page.get("height"), f"Page {number}: height differs"
         images = []
-        for pdf in (reference, actual):
+        for pdf in (baseline, actual):
             # With no output prefix, Poppler returns a PPM image on stdout.
             images.append(
                 run([
@@ -101,32 +101,14 @@ def compare(reference, actual, args):
                 ])
             )
         assert images[0].startswith(b"P6"), "Poppler did not return a PPM image"
-        assert images[0] == images[1], f"Page {number}: pixel mismatch ({reference.name}, {actual.name})"
+        assert images[0] == images[1], f"Page {number}: pixel mismatch ({baseline.name}, {actual.name})"
     print(f"{actual.stem}: {len(actual_pages)} pages pixel-identical at 144 dpi", flush=True)
     return actual_pages
 
 
-def check_original(source_path, build_dir, args):
-    source_path = source_path.resolve()
-    original = source_path.read_text(encoding="utf-8")
-    replacements = {
-        r"\usetheme[footline=none]{Madrid}": r"\usetheme{USTS}",
-        r"\usecolortheme{mycolor}": "",
-        r"\usefonttheme[onlymath]{serif}": "",
-    }
-    extracted = original
-    for before, after in replacements.items():
-        assert extracted.count(before) == 1, f"Expected exactly one original directive: {before}"
-        extracted = extracted.replace(before, after, 1)
-    reference = compile_pdf(original, "source-original", build_dir, source_path.parent, args)
-    actual = compile_pdf(extracted, "source-usts", build_dir, source_path.parent, args)
-    compare(reference, actual, args)
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--build-dir", type=Path, default=ROOT / "build" / "fidelity")
-    parser.add_argument("--source", type=Path, help="Also compare the complete original solution .tex")
+    parser.add_argument("--build-dir", type=Path, default=ROOT / "build" / "layout")
     parser.add_argument("--latexmk", default="latexmk")
     parser.add_argument("--pdftoppm", default="pdftoppm")
     parser.add_argument("--pdftotext", default="pdftotext")
@@ -136,15 +118,13 @@ def main():
         ratio = "169" if wide else "43"
         prefix = "\\def\\USTSWide{1}\n" if wide else ""
         fixture = prefix + "\\input{tests/regression.tex}\n"
-        reference = compile_pdf(
-            "\\def\\USTSReference{1}\n" + fixture,
-            f"reference-{ratio}", build_dir, ROOT, args,
+        baseline = compile_pdf(
+            "\\def\\USTSBaseline{1}\n" + fixture,
+            f"baseline-{ratio}", build_dir, ROOT, args,
         )
         actual = compile_pdf(fixture, f"usts-{ratio}", build_dir, ROOT, args)
-        check_fixture(compare(reference, actual, args), wide)
-    if args.source:
-        check_original(args.source, build_dir, args)
-    print("All source-fidelity checks passed.", flush=True)
+        check_fixture(compare(baseline, actual, args), wide)
+    print("All layout checks passed.", flush=True)
 
 
 if __name__ == "__main__":

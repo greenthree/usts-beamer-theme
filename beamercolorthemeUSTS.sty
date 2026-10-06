@@ -1,14 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamercolorthemeUSTS}[2026/10/06 v2.0.0 Reference USTS color theme]
+\ProvidesPackage{beamercolorthemeUSTS}[2026/10/06 v1.0.0 USTS Beamer color theme]
 
 \mode<presentation>
 \RequirePackage{xcolor}
 
-% Preserve the reference color and let Madrid derive all other colors.
-\definecolor{mycolor}{RGB}{0,140,215}
-\colorlet{USTSBlue}{mycolor}
-\usecolortheme[named=mycolor]{structure}
+% School blue; Madrid derives the block and footer colors from this color.
+\definecolor{USTSBlue}{RGB}{0,140,215}
+\usecolortheme[named=USTSBlue]{structure}
 \setbeamercolor{normal text}{fg=black}
-\setbeamercolor{alerted text}{fg=mycolor}
+\setbeamercolor{alerted text}{fg=USTSBlue}
 
 \mode<all>

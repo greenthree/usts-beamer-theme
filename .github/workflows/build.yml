@@ -1,4 +1,4 @@
-name: Build and check fidelity
+name: Build template
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
       - name: Compile template and syntax examples
         run: latexmk -xelatex -interaction=nonstopmode -halt-on-error template.tex example.tex
 
-      - name: Compare original and extracted theme pixel by pixel
-        run: python3 tests/check_fidelity.py
+      - name: Check layout regressions
+        run: python3 tests/check_layout.py
 
       - name: Upload PDF
         uses: actions/upload-artifact@v7
@@ -33,4 +33,4 @@ jobs:
           path: |
             template.pdf
             example.pdf
-            build/fidelity/*/*.pdf
+            build/layout/*/*.pdf

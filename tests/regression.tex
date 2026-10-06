@@ -1,0 +1,72 @@
+\ifdefined\USTSFourThree
+  \documentclass[aspectratio=43,11pt,usepdftitle=false]{beamer}
+\else
+  \documentclass[aspectratio=169,11pt,usepdftitle=false]{beamer}
+\fi
+\usepackage[UTF8]{ctex}
+\usetheme[footline=full]{USTS}
+
+\title{Regression}
+\author{Author}
+\date{2026-10-06}
+
+\begin{document}
+
+\begin{frame}{未指定单位}
+  不设置单位时，页脚只显示作者。
+\end{frame}
+
+\institute[]{苏州科技大学}
+\begin{frame}{显式空短单位}
+  标题页仍可使用完整单位，页脚不显示括号。
+\end{frame}
+
+\institute{苏州科技大学}
+\begin{frame}{仅设置完整单位}
+  完整单位自动成为短单位。
+\end{frame}
+
+\institute[USTS]{苏州科技大学}
+\begin{frame}{设置短单位}
+  页脚显示短单位。
+\end{frame}
+
+\begin{frame}{自动换行标题开头：这是一段足够长的中文标题，用于检查标题栏在自动换行时能够完整容纳每一行文字，并正确为正文预留垂直空间。自动换行标题结尾}
+  多行标题应完整显示。
+\end{frame}
+
+\begin{frame}{手动换行第一行\\手动换行第二行}
+  两行标题都应可见。
+\end{frame}
+
+\begin{frame}{主标题}
+  \framesubtitle{副标题内容}
+  主标题和副标题都应有上下留白。
+\end{frame}
+
+\author{First Author \and Second Author \and Third Author \and Fourth Author}
+\title{A very long report title about experimental methods, results, and conclusions}
+\date{A long presentation date: October 6, 2026}
+\begin{frame}{长页脚元数据}
+  作者、报告名称和日期应保持在各自分栏内。
+\end{frame}
+
+\setbeamertemplate{footline}[usts-minimal]
+\begin{frame}{极简页脚}
+  长报告名称和页码应保持在各自分栏内。
+\end{frame}
+
+\setbeamertemplate{footline}[usts-none]
+\begin{frame}{无页脚}
+  此页不显示页脚文字。
+\end{frame}
+
+\title[Short]{A very long report title about experimental methods, results, and conclusions}
+\author[Team]{First Author \and Second Author \and Third Author \and Fourth Author}
+\date[2026]{A long presentation date: October 6, 2026}
+\setbeamertemplate{footline}[usts-full]
+\begin{frame}{使用简写}
+  简写内容应按原字号显示。
+\end{frame}
+
+\end{document}

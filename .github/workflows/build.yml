@@ -18,13 +18,22 @@ jobs:
       - name: Install TeX Live
         run: |
           sudo apt-get update
-          sudo apt-get install -y latexmk texlive-xetex texlive-lang-chinese texlive-latex-extra
+          sudo apt-get install -y latexmk texlive-xetex texlive-lang-chinese texlive-latex-extra poppler-utils
 
       - name: Compile example
         run: latexmk -xelatex -interaction=nonstopmode -halt-on-error example.tex
+
+      - name: Check layout regressions
+        run: |
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error tests/regression.tex
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error tests/regression-43.tex
+          python3 tests/check_pdf.py regression.pdf regression-43.pdf
 
       - name: Upload PDF
         uses: actions/upload-artifact@v7
         with:
           name: usts-beamer-example
-          path: example.pdf
+          path: |
+            example.pdf
+            regression.pdf
+            regression-43.pdf

@@ -1,9 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemeUSTS}[2026/07/28 v1.0.0 USTS Beamer theme]
+\ProvidesPackage{beamerthemeUSTS}[2026/10/06 v1.0.1 USTS Beamer theme]
 
 \mode<presentation>
 
-\RequirePackage{etoolbox}
+\RequirePackage{etoolbox,graphicx}
 
 \newcommand{\usts@footline}{full}
 \DeclareOptionBeamer{footline}{\renewcommand{\usts@footline}{#1}}
@@ -82,15 +82,25 @@
 
 \setbeamertemplate{frametitle}{%
   \nointerlineskip
-  \ifx\insertframesubtitle\@empty
-    \begin{beamercolorbox}[wd=\paperwidth,ht=2.65ex,dp=1.05ex,leftskip=0.55cm,rightskip=0.35cm]{frametitle}
-      \usebeamerfont{frametitle}\strut\insertframetitle\strut
-    \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth,vmode,leftskip=\beamer@leftmargin,rightskip=\beamer@rightmargin]{frametitle}
+    \vskip0.6ex
+    {\usebeamerfont{frametitle}\strut\insertframetitle\strut\par}%
+    \ifx\insertframesubtitle\@empty
+    \else
+      {\usebeamerfont{framesubtitle}\strut\insertframesubtitle\strut\par}%
+    \fi
+    \vskip0.6ex
+  \end{beamercolorbox}%
+}
+
+% Keep footer text on one line and shrink only when it exceeds its column.
+\newsavebox{\usts@footlinebox}
+\newcommand{\usts@fitfootline}[2]{%
+  \sbox{\usts@footlinebox}{#2}%
+  \ifdim\wd\usts@footlinebox>#1\relax
+    \resizebox{#1}{!}{\usebox{\usts@footlinebox}}%
   \else
-    \begin{beamercolorbox}[wd=\paperwidth,sep=0.28ex,leftskip=0.55cm,rightskip=0.35cm]{frametitle}
-      \usebeamerfont{frametitle}\insertframetitle\par
-      {\usebeamerfont{framesubtitle}\insertframesubtitle\par}
-    \end{beamercolorbox}%
+    \usebox{\usts@footlinebox}%
   \fi
 }
 
@@ -99,15 +109,20 @@
   \hbox{%
     \begin{beamercolorbox}[wd=.32\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
       \usebeamerfont{author in head/foot}%
-      \insertshortauthor%
-      \ifx\insertshortinstitute\@empty\else\hspace{0.35em}(\insertshortinstitute)\fi
+      \usts@fitfootline{\dimexpr.32\paperwidth-0.4cm\relax}{%
+        \insertshortauthor%
+        \ifx\beamer@shortinstitute\@empty\else\hspace{0.35em}(\insertshortinstitute)\fi
+      }%
     \end{beamercolorbox}%
     \begin{beamercolorbox}[wd=.36\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
-      \usebeamerfont{title in head/foot}\insertshorttitle
+      \usebeamerfont{title in head/foot}%
+      \usts@fitfootline{\dimexpr.36\paperwidth-0.4cm\relax}{\insertshorttitle}%
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.32\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
-      \usebeamerfont{date in head/foot}\insertshortdate\hspace{1em}%
-      \insertframenumber{} / \inserttotalframenumber\hspace{0.6cm}
+    \begin{beamercolorbox}[wd=.32\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=\beamer@rightmargin]{date in head/foot}%
+      \usebeamerfont{date in head/foot}%
+      \usts@fitfootline{\dimexpr.32\paperwidth-\beamer@rightmargin-0.2cm\relax}{%
+        \insertshortdate\hspace{1em}\insertframenumber{} / \inserttotalframenumber
+      }%
     \end{beamercolorbox}%
   }%
 }
@@ -115,11 +130,15 @@
 \defbeamertemplate*{footline}{usts-minimal}{%
   \leavevmode
   \hbox{%
-    \begin{beamercolorbox}[wd=.84\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
-      \hspace{0.6cm}\usebeamerfont{title in head/foot}\insertshorttitle
+    \begin{beamercolorbox}[wd=.84\paperwidth,ht=2.25ex,dp=1ex,left,leftskip=\beamer@leftmargin]{title in head/foot}%
+      \usebeamerfont{title in head/foot}%
+      \usts@fitfootline{\dimexpr.84\paperwidth-\beamer@leftmargin-0.2cm\relax}{\insertshorttitle}%
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.16\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
-      \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace{0.6cm}
+    \begin{beamercolorbox}[wd=.16\paperwidth,ht=2.25ex,dp=1ex,right,rightskip=\beamer@rightmargin]{date in head/foot}%
+      \usebeamerfont{date in head/foot}%
+      \usts@fitfootline{\dimexpr.16\paperwidth-\beamer@rightmargin-0.1cm\relax}{%
+        \insertframenumber{} / \inserttotalframenumber
+      }%
     \end{beamercolorbox}%
   }%
 }

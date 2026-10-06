@@ -1,9 +1,14 @@
 *.aux
+*.bbl
+*.bcf
+*.blg
 *.fdb_latexmk
 *.fls
 *.log
+*.listing
 *.nav
 *.out
+*.run.xml
 *.pdf
 *.snm
 *.synctex.gz

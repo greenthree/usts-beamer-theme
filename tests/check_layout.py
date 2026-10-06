@@ -71,6 +71,10 @@ def check_fixture(pages, wide):
             )
             assert -0.5 <= x0 <= x1 <= width + 0.5, f"Page {number}: text outside width: {word.text}"
             assert -0.5 <= y0 <= y1 <= height + 0.5, f"Page {number}: text outside height: {word.text}"
+    cover = page_text(pages[0])
+    assert "苏州科技大学ACM集训队" in cover, "Cover institute is missing"
+    assert "（" not in cover and "）" not in cover, "Cover institute has parentheses"
+    assert "(USTSACM)" in page_text(pages[0], footer=True), "Short institute is missing"
     assert "手动换行第一行" in page_text(pages[3])
     assert "手动换行第二行" in page_text(pages[3])
     assert "自动换行标题开头" in page_text(pages[4])

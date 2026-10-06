@@ -15,10 +15,10 @@
 - 圆角阴影封面、通栏标题、球形项目符号和圆角阴影信息块。
 - 三个等宽页脚栏，分别显示作者与单位、报告简称、日期与页码。
 - 普通信息块和提醒块采用蓝色，示例块采用 Madrid 默认绿色。
-- 封面包含校徽和 ACM 集训队标识，可按报告用途替换。
+- 封面仅放置居中的校徽，可按报告用途替换。
 - 提供可直接填写的报告模板与常用语法示例。
 
-默认作者为「绿化三」，单位为「苏州科技大学物理科学与技术学院」。
+默认作者为「绿化三」，封面单位显示为「苏州科技大学 ACM 集训队」，页脚简写为 `USTS ACM`。
 
 ## 快速开始
 
@@ -35,7 +35,7 @@
 
 \title[报告简称]{苏州科技大学\\报告标题}
 \author[绿化三]{绿化三}
-\institute[USTS]{苏州科技大学物理科学与技术学院\\\medskip}
+\institute[USTS ACM]{苏州科技大学 ACM 集训队\\\medskip}
 \date{\today}
 ```
 
@@ -57,15 +57,14 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error example.tex
   \titlepage
   \begin{figure}[htbp]
     \begin{center}
-      \includegraphics[scale=0.18]{assets/usts-logo.jpg}$\ \ \ $
-      \includegraphics[scale=0.32]{assets/acm-logo.png}
+      \includegraphics[scale=0.18]{assets/usts-logo.jpg}
     \end{center}
   \end{figure}
   \vspace{25pt}
 \end{frame}
 ```
 
-制作课程或学术报告时，可以删除 ACM 标识对应的第二个 `\includegraphics` 及其前面的数学空格，或替换为学院提供的标识。
+如需使用其他标识，可将 `assets/usts-logo.jpg` 替换为相应素材，并按图片比例调整缩放设置。
 
 封面标题建议不超过两行，单位信息建议写成一行。增加副标题或多行作者时，请相应调整图片及留白，避免封面超高。
 
@@ -119,7 +118,7 @@ Madrid 页脚不自动缩小或截断文字。标题、作者或日期较长时�
 ```tex
 \title[项目汇报]{完整的项目研究与成果汇报标题}
 \author[绿化三等]{绿化三 \and 李四 \and 王五}
-\institute[USTS]{苏州科技大学物理科学与技术学院\\\medskip}
+\institute[USTS ACM]{苏州科技大学 ACM 集训队\\\medskip}
 \date[2026-10]{2026 年 10 月}
 ```
 
@@ -154,7 +153,6 @@ CI 编译 `template.tex`、`example.tex`，运行排版测试，并上传 PDF。
 ├── preview.png
 ├── assets/
 │   ├── usts-logo.jpg
-│   ├── acm-logo.png
 │   └── README.md
 ├── tests/
 │   ├── regression.tex
@@ -166,7 +164,7 @@ CI 编译 `template.tex`、`example.tex`，运行排版测试，并上传 PDF。
 
 主题代码以 [MIT License](LICENSE) 开源。Madrid 及其他 Beamer 组件直接使用 TeX 发行版中的实现，其许可归各自项目管理。
 
-本项目为非官方模板，与苏州科技大学官方无隶属或授权关系。学校名称、校徽、ACM 标识等权利归各自权利人所有，素材不因项目采用 MIT License 而改变其权利归属。使用者应遵守相应视觉标识规范。
+本项目为非官方模板，与苏州科技大学官方无隶属或授权关系。学校名称、校徽等权利归各自权利人所有，素材不因项目采用 MIT License 而改变其权利归属。使用者应遵守相应视觉标识规范。
 
 ---
 
